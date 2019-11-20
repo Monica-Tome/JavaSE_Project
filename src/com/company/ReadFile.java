@@ -35,10 +35,10 @@ public class ReadFile {
                     String firstName = person.getElementsByTagName("firstName").item(0).getTextContent();
                     String lastName = person.getElementsByTagName("lastName").item(0).getTextContent();
                     String startDate = person.getElementsByTagName("startDate").item(0).getTextContent();
-                    int salaryHour = Integer.parseInt(person.getElementsByTagName("salaryHour").item(0).getTextContent());
-                    boolean active = Boolean.parseBoolean(person.getElementsByTagName("salaryHour").item(0).getTextContent());
+                    int salaryDay = Integer.parseInt(person.getElementsByTagName("salaryDay").item(0).getTextContent());
+                    boolean active = Boolean.parseBoolean(person.getElementsByTagName("active").item(0).getTextContent());
 
-                    ActiveProgrammers member = new ActiveProgrammers(id, firstName, lastName, startDate, salaryHour, active);
+                    ActiveProgrammers member = new ActiveProgrammers(id, firstName, lastName, startDate, salaryDay, active);
                     list1.add(member);
                 }
             }

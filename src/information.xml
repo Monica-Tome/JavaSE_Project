@@ -5,7 +5,7 @@
         <firstName>Sara</firstName>
         <lastName>Silva</lastName>
         <startDate>12-10-2019</startDate>
-        <salaryHour>12</salaryHour>
+        <salaryDay>12</salaryDay>
         <active>true</active>
     </programmer>
     <programmer>
@@ -13,7 +13,7 @@
         <firstName>Daniel</firstName>
         <lastName>Oz</lastName>
         <startDate>12-10-2019</startDate>
-        <salaryHour>12</salaryHour>
+        <salaryDay>12</salaryDay>
         <active>true</active>
     </programmer>
     <programmer>
@@ -21,7 +21,7 @@
         <firstName>Afonso</firstName>
         <lastName>Pereira</lastName>
         <startDate>12-11-2019</startDate>
-        <salaryHour>15</salaryHour>
+        <salaryDay>15</salaryDay>
         <active>true</active>
     </programmer>
     <programmer>
@@ -29,7 +29,7 @@
         <firstName>Luís</firstName>
         <lastName>Damásio</lastName>
         <startDate>12-11-2019</startDate>
-        <salaryHour>20</salaryHour>
+        <salaryDay>20</salaryDay>
         <active>true</active>
     </programmer>
     <project>

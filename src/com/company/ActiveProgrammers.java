@@ -7,18 +7,18 @@ public class ActiveProgrammers implements Programmers {
     private String firstName;
     private String lastName;
     private String startDate;
-    private int salaryHour;
+    private int salaryDay;
     boolean active;
 
     public ActiveProgrammers() {
     }
 
-    public ActiveProgrammers(int id, String firstName, String lastName, String startDate, int salaryHour, boolean active) {
+    public ActiveProgrammers(int id, String firstName, String lastName, String startDate, int salaryDay, boolean active) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.startDate = startDate;
-        this.salaryHour = salaryHour;
+        this.salaryDay = salaryDay;
         this.active = active;
     }
 
@@ -55,11 +55,11 @@ public class ActiveProgrammers implements Programmers {
     }
 
     public int getSalaryHour() {
-        return salaryHour;
+        return salaryDay;
     }
 
-    public void setSalaryHour(int salaryHour) {
-        this.salaryHour = salaryHour;
+    public void setSalaryHour(int salaryDay) {
+        this.salaryDay = salaryDay;
     }
 
 }

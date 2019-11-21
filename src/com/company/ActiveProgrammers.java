@@ -15,6 +15,8 @@ public class ActiveProgrammers implements Programmers {
     private int salaryDay;
     boolean active;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    Scanner scanner = new Scanner(System.in);
+    Main menu = new Main();
 
     public ActiveProgrammers() {
     }
@@ -64,12 +66,12 @@ public class ActiveProgrammers implements Programmers {
     }
 
     // Returns the salaryHour value
-    public int getSalaryHour() {
+    public int getSalaryDay() {
         return salaryDay;
     }
 
     // Change the salaryHour value
-    public void setSalaryHour(int salaryDay) {
+    public void setSalaryDay(int salaryDay) {
         this.salaryDay = salaryDay;
     }
 
@@ -83,15 +85,13 @@ public class ActiveProgrammers implements Programmers {
     public ArrayList printProgrammers(ArrayList<ActiveProgrammers> list1) {
 
         for (ActiveProgrammers programmer: list1) {
-            System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + dateFormat.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryHour() + "€ per day.");
+            System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + dateFormat.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryDay() + "€ per day.");
         }
         return list1;
     }
 
     // Function that allows the user to edit each programmer in the list of programmers (list1)
     public void editProgrammer(ArrayList<ActiveProgrammers> list1) throws ParseException {
-        Scanner scanner = new Scanner(System.in);
-        Main menu = new Main();
 
         // variable to choose the ID of the programmer to be edited
         int choice = scanner.nextInt();
@@ -137,10 +137,27 @@ public class ActiveProgrammers implements Programmers {
                 int salary = Main.scanner.nextInt();
                 for (ActiveProgrammers programmer : list1) {
                     if (choice == programmer.getId()) {
-                        programmer.setSalaryHour(salary);
+                        programmer.setSalaryDay(salary);
                     }
                 }
                 break;
         }
+    }
+
+    // Function to add a new Programmer to list of programmers (list1)
+    public void addProgrammer(ArrayList<ActiveProgrammers> list1) throws ParseException {
+        int number = list1.size() + 1;
+        System.out.println("Please insert the first name");
+        String firstName = Main.scanner.next();
+        System.out.println("Now, please insert the last name");
+        String lastName = Main.scanner.next();
+        System.out.println("Insert the start date of work");
+        String start = Main.scanner.next();
+        Date date = dateFormat.parse(start);
+        System.out.println("Insert the salary per hour");
+        int salary = scanner.nextInt();
+        this.active = false;
+        ActiveProgrammers member = new ActiveProgrammers(number, firstName, lastName, date, salary, this.active);
+        list1.add(member);
     }
 }

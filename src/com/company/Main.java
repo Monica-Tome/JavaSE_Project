@@ -64,12 +64,12 @@ public class Main {
                     scanner.nextLine();
                     break;
 
-                // To insert a new programmer
+                // To insert a new programmer in xml file
                 case 4:
-                    System.out.println("Still updating");
+                    programmers.addProgrammer(list1);
                     break;
 
-                // To insert a new project
+                // To insert a new project in xml file
                 case 5:
                     System.out.println("Still updating5");
                     break;
@@ -79,12 +79,12 @@ public class Main {
                     System.out.println("Still updating6");
                     break;
 
-                // To delete a programmer
+                // To delete a programmer from xml file
                 case 7:
                     System.out.println("Still updating7");
                     break;
 
-                // To delete a project
+                // To delete a project from xml file
                 case 8:
                     System.out.println("Still updating8");
                     break;
@@ -125,6 +125,7 @@ public class Main {
         System.out.println("\t *Enter the choice number to edit: ");
         System.out.println("\t 1 - Start date");
         System.out.println("\t 2 - End date");
-        System.out.println("\t 3 - Programmer ID");
+        System.out.println("\t 3 - Insert new programmer");
+        System.out.println("\t 4 - Delete a programmer");
     }
 }

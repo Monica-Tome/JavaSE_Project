@@ -126,75 +126,112 @@ public class NewProject {
     }
 
 //    // Function that allows the user to edit each project in the list of projects (list2)
-//    public void editProject(ArrayList<ActiveProgrammers> list1, ArrayList<NewProject> list2) throws ParseException {
-//        Scanner scanner = new Scanner(System.in);
-//        Main menu = new Main();
-//        ActiveProgrammers programmer = new ActiveProgrammers();
-//
-//        // variable to choose the ID of the project to be edited
-//        int choice = scanner.nextInt();
-//        menu.submenuEditProject();
-//
-//        // variable to choose the field of the project to be edited
-//        int field = Main.scanner.nextInt();
-//        switch (field) {
-//            case 1:
-//                System.out.println("Insert the start date of the project (format dd-MM-yyy: ");
-//                // variable with the text introduced by the user
-//                String date = Main.scanner.next();
-//                Date start = dateFormat.parse(date);
-//                for (NewProject project : list2) {
-//                    if (choice == project.getId()) {
-//                        project.setStartDate(start);
-//                    }
-//                }
-//                break;
-//            case 2:
-//                System.out.println("Insert the planned end date for the project (format dd-MM-yyy: ");
-//                // variable with the text introduced by the user
-//                String end = Main.scanner.next();
-//                Date endDate = dateFormat.parse(end);
-//                for (NewProject project : list2) {
-//                    if (choice == project.getId()) {
-//                        project.setStartDate(endDate);
-//                    }
-//                }
-//                break;
-//            case 3:
-//                System.out.println("The programmers included in this project are: ");
-//                System.out.println("");
-//                for (NewProject project: list2) {
-//                    for (int i = 1; i < list2.size(); i++) {
-//                        int search = project.getId().get(i);
-//                        if(project.getId() == search) {
-//                            for (ActiveProgrammers programmers: list1) {
-//                                System.out.println("ID " + );
-//                            }
-//                        }
-//                    }
-//                }
-////                    System.out.println("ID: " + project.getId() + " - The project started in " + dateFormat.format(project.getStartDate()) + " and is planned to end in " + dateFormat.format(project.getEndDate()) + ".");
-////                    System.out.println("");
-////                    System.out.println("The members of the project are: ");
-////                    for (int i = 0; i <project.getMemberID().size(); i++) {
-////                        ActiveProgrammers p = new ActiveProgrammers();
-////                        int search = project.getMemberID().get(i);
-////                        for (ActiveProgrammers person : list1) {
-////                            if (person.getId() == search) {
-////                                p = person;
+////    public void editProject(ArrayList<ActiveProgrammers> list1, ArrayList<NewProject> list2) throws ParseException {
+////        Scanner scanner = new Scanner(System.in);
+////        Main menu = new Main();
+////        ActiveProgrammers programmer = new ActiveProgrammers();
+////
+////        // variable to choose the ID of the project to be edited
+////        int choice = scanner.nextInt();
+////        menu.submenuEditProject();
+////
+////        // variable to choose the field of the project to be edited
+////        int field = Main.scanner.nextInt();
+////        switch (field) {
+////            case 1:
+////                System.out.println("Insert the start date of the project (format dd-MM-yyy: ");
+////                // variable with the text introduced by the user
+////                String date = Main.scanner.next();
+////                Date start = dateFormat.parse(date);
+////                for (NewProject project : list2) {
+////                    if (choice == project.getId()) {
+////                        project.setStartDate(start);
+////                    }
+////                }
+////                break;
+////            case 2:
+////                System.out.println("Insert the planned end date for the project (format dd-MM-yyy: ");
+////                // variable with the text introduced by the user
+////                String end = Main.scanner.next();
+////                Date endDate = dateFormat.parse(end);
+////                for (NewProject project : list2) {
+////                    if (choice == project.getId()) {
+////                        project.setStartDate(endDate);
+////                    }
+////                }
+////                break;
+////            case 3:
+////                System.out.println("The programmers included in this project are: ");
+////                System.out.println("");
+////                for (NewProject project: list2) {
+////                    for (int i = 1; i < list2.size(); i++) {
+////                        int search = project.getId().get(i);
+////                        if(project.getId() == search) {
+////                            for (ActiveProgrammers programmers: list1) {
+////                                System.out.println("ID " + );
 ////                            }
 ////                        }
-////                        System.out.println("ID: " + project.getMemberID().get(i) + " - " + p.getFirstName() + " " + p.getLastName() +". Activity: " + project.getMemberActivity().get(i));
 ////                    }
-////                    System.out.println("---------------------------------");
 ////                }
-//                System.out.println("ID: " + );
-//                System.out.println("Insert the ID of the person you want to exchange for ");
-//                for(ActiveProgrammers programmer: list1) {
-//                    if(programmer.isActive() == false) {
-//                        System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + dateFormat.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryHour() + "€ per day.");
-//                    }
-//                }
+//////                    System.out.println("ID: " + project.getId() + " - The project started in " + dateFormat.format(project.getStartDate()) + " and is planned to end in " + dateFormat.format(project.getEndDate()) + ".");
+//////                    System.out.println("");
+//////                    System.out.println("The members of the project are: ");
+//////                    for (int i = 0; i <project.getMemberID().size(); i++) {
+//////                        ActiveProgrammers p = new ActiveProgrammers();
+//////                        int search = project.getMemberID().get(i);
+//////                        for (ActiveProgrammers person : list1) {
+//////                            if (person.getId() == search) {
+//////                                p = person;
+//////                            }
+//////                        }
+//////                        System.out.println("ID: " + project.getMemberID().get(i) + " - " + p.getFirstName() + " " + p.getLastName() +". Activity: " + project.getMemberActivity().get(i));
+//////                    }
+//////                    System.out.println("---------------------------------");
+//////                }
+////                System.out.println("ID: " + );
+////                System.out.println("Insert the ID of the person you want to exchange for ");
+////                for(ActiveProgrammers programmer: list1) {
+////                    if(programmer.isActive() == false) {
+////                        System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + dateFormat.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryHour() + "€ per day.");
+////                    }
+////                }
+////        }
+////    }
+
+    // Function to add a new Project to list of projects (list2)
+//    public void addProject(ArrayList<ActiveProgrammers> list1, ArrayList<NewProject> list2) throws ParseException {
+//        ActiveProgrammers person = new ActiveProgrammers();
+//        ArrayList<Integer> memberId = new ArrayList<>();
+//        ArrayList<String> memberActivity = new ArrayList<>();
+//        int number = list2.size() + 1;
+//        System.out.println("Insert the start date of the project");
+//        String start = Main.scanner.next();
+//        Date date = dateFormat.parse(start);
+//        System.out.println("Insert the planned end date for the project");
+//        String end = Main.scanner.next();
+//        Date eDate = dateFormat.parse(end);
+//        int n = 0;
+//        for (ActiveProgrammers programmer: list1) {
+//            if(programmer.active == false) {
+//                person = programmer;
+//                System.out.println("ID " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ". Receives " + programmer.getSalaryDay() + "€ per day.");
+//                n++;
+//            }
 //        }
+//
+//        System.out.println("Do you want to insert some programmer to your new project? (Y/N");
+//        String yn = Main.scanner.next();
+//            if(yn.equals("Y")) {
+//                if(n > 2) {
+//                    System.out.println("Which ones? You have to choose at least two programmers!");
+//                } else if(n == 2) {
+//
+//                }
+//            } else {
+//                return;
+//            }
+//
+//            NewProject project = new NewProject(number, start, end, members, activities);
+//        list1.add(member);
 //    }
 }

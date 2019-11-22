@@ -45,9 +45,6 @@ public class Main {
                     System.out.println("\t *Enter the ID of the programmer you want to edit: ");
                     // Functions to edit programmers' fields
                     programmers.editProgrammer(list1);
-                    System.out.println("\t Enter a number to return to main menu: ");
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
                     break;
 
                 // To edit projects' data

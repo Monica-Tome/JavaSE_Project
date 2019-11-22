@@ -95,53 +95,59 @@ public class ActiveProgrammers implements Programmers {
 
         // variable to choose the ID of the programmer to be edited
         int choice = scanner.nextInt();
-        menu.submenuEditProgrammer();
-
-        // variable to choose the field of the programmer to be edited
-        int field = Main.scanner.nextInt();
-        switch (field) {
-            case 1:
-                System.out.println("Insert the first name: ");
-                // variable with the text introduced by the user
-                String choiceString = Main.scanner.next();
-                for (ActiveProgrammers programmer : list1) {
-                    if (choice == programmer.getId()) {
-                       programmer.setFirstName(choiceString);
+        if(choice >=1 && choice <=list1.size()) {
+            menu.submenuEditProgrammer();
+            // variable to choose the field of the programmer to be edited
+            int field = Main.scanner.nextInt();
+            switch (field) {
+                case 1:
+                    System.out.println("Insert the first name: ");
+                    // variable with the text introduced by the user
+                    String choiceString = Main.scanner.next();
+                    for (ActiveProgrammers programmer : list1) {
+                        if (choice == programmer.getId()) {
+                            programmer.setFirstName(choiceString);
+                        }
                     }
-                }
-                break;
-            case 2:
-                System.out.println("Insert the last name: ");
-                // variable with the text introduced by the user
-                choiceString = Main.scanner.next();
-                for (ActiveProgrammers programmer : list1) {
-                    if (choice == programmer.getId()) {
-                        programmer.setLastName(choiceString);
+                    break;
+                case 2:
+                    System.out.println("Insert the last name: ");
+                    // variable with the text introduced by the user
+                    choiceString = Main.scanner.next();
+                    for (ActiveProgrammers programmer : list1) {
+                        if (choice == programmer.getId()) {
+                            programmer.setLastName(choiceString);
+                        }
                     }
-                }
-                break;
-            case 3:
-                System.out.println("Insert the start date of work (format dd-MM-yyy: ");
-                // variable with the text introduced by the user
-                String date = Main.scanner.next();
-                Date start = dateFormat.parse(date);
-                for (ActiveProgrammers programmer : list1) {
-                    if (choice == programmer.getId()) {
-                        programmer.setStartDate(start);
+                    break;
+                case 3:
+                    System.out.println("Insert the start date of work (format dd-MM-yyy: ");
+                    // variable with the text introduced by the user
+                    String date = Main.scanner.next();
+                    Date start = dateFormat.parse(date);
+                    for (ActiveProgrammers programmer : list1) {
+                        if (choice == programmer.getId()) {
+                            programmer.setStartDate(start);
+                        }
                     }
-                }
-                break;
-            case 4:
-                System.out.println("Insert the salary per hour: ");
-                // variable with the text introduced by the user
-                int salary = Main.scanner.nextInt();
-                for (ActiveProgrammers programmer : list1) {
-                    if (choice == programmer.getId()) {
-                        programmer.setSalaryDay(salary);
+                    break;
+                case 4:
+                    System.out.println("Insert the salary per hour: ");
+                    // variable with the text introduced by the user
+                    int salary = Main.scanner.nextInt();
+                    for (ActiveProgrammers programmer : list1) {
+                        if (choice == programmer.getId()) {
+                            programmer.setSalaryDay(salary);
+                        }
                     }
-                }
-                break;
+                    break;
+            }
+        } else {
+            System.out.println("This ID number is not available!");
+            return;
         }
+        System.out.println("You edited the programmer with success!");
+
     }
 
     // Function to add a new Programmer to list of programmers (list1)

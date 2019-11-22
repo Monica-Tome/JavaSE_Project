@@ -1,7 +1,8 @@
 package com.company;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -11,17 +12,17 @@ public class ActiveProgrammers implements Programmers {
     private int id;
     private String firstName;
     private String lastName;
-    private Date startDate;
-    private int salaryDay;
+    private LocalDate startDate;
+    private double salaryDay;
     boolean active;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     Scanner scanner = new Scanner(System.in);
     Main menu = new Main();
 
     public ActiveProgrammers() {
     }
 
-    public ActiveProgrammers(int id, String firstName, String lastName, Date startDate, int salaryDay, boolean active) {
+    public ActiveProgrammers(int id, String firstName, String lastName, LocalDate startDate, double salaryDay, boolean active) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -56,27 +57,27 @@ public class ActiveProgrammers implements Programmers {
     }
 
     // Returns the startDate value
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
     // Change the startDate value
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
     // Returns the salaryHour value
-    public int getSalaryDay() {
+    public double getSalaryDay() {
         return salaryDay;
     }
 
     // Change the salaryHour value
-    public void setSalaryDay(int salaryDay) {
+    public void setSalaryDay(double salaryDay) {
         this.salaryDay = salaryDay;
     }
 
     // Returns the boolean value of active
-    public boolean isActive() { return active; }
+    public boolean getActive() { return active; }
 
     // Change the boolean value of active
     public void setActive(boolean active) { this.active = active; }
@@ -85,85 +86,75 @@ public class ActiveProgrammers implements Programmers {
     public ArrayList printProgrammers(ArrayList<ActiveProgrammers> list1) {
 
         for (ActiveProgrammers programmer: list1) {
-            System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + dateFormat.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryDay() + "€ per day.");
+            System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryDay() + "€ per day.");
         }
         return list1;
     }
 
     // Function that allows the user to edit each programmer in the list of programmers (list1)
-    public void editProgrammer(ArrayList<ActiveProgrammers> list1) throws ParseException {
-
+    public void editProgrammer(ArrayList<ActiveProgrammers> list1) {
         // variable to choose the ID of the programmer to be edited
         int choice = scanner.nextInt();
-        if(choice >=1 && choice <=list1.size()) {
-            menu.submenuEditProgrammer();
-            // variable to choose the field of the programmer to be edited
-            int field = Main.scanner.nextInt();
-            switch (field) {
-                case 1:
-                    System.out.println("Insert the first name: ");
-                    // variable with the text introduced by the user
-                    String choiceString = Main.scanner.next();
-                    for (ActiveProgrammers programmer : list1) {
-                        if (choice == programmer.getId()) {
-                            programmer.setFirstName(choiceString);
-                        }
-                    }
-                    break;
-                case 2:
-                    System.out.println("Insert the last name: ");
-                    // variable with the text introduced by the user
-                    choiceString = Main.scanner.next();
-                    for (ActiveProgrammers programmer : list1) {
-                        if (choice == programmer.getId()) {
-                            programmer.setLastName(choiceString);
-                        }
-                    }
-                    break;
-                case 3:
-                    System.out.println("Insert the start date of work (format dd-MM-yyy: ");
-                    // variable with the text introduced by the user
-                    String date = Main.scanner.next();
-                    Date start = dateFormat.parse(date);
-                    for (ActiveProgrammers programmer : list1) {
-                        if (choice == programmer.getId()) {
-                            programmer.setStartDate(start);
-                        }
-                    }
-                    break;
-                case 4:
-                    System.out.println("Insert the salary per hour: ");
-                    // variable with the text introduced by the user
-                    int salary = Main.scanner.nextInt();
-                    for (ActiveProgrammers programmer : list1) {
-                        if (choice == programmer.getId()) {
-                            programmer.setSalaryDay(salary);
-                        }
-                    }
-                    break;
+        for(ActiveProgrammers programmer: list1) {
+            if(programmer.getId() == choice) {
+                System.out.println("Please insert the new salary by each day");
+                double salary = Main.scanner.nextDouble();
+                programmer.setSalaryDay(salary);
+                System.out.println("You edited the salary with success!");
+                System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryDay() + "€ per day.");
+                return;
+            } else {
+                System.out.println("This ID number is not available!");
+                break;
             }
-        } else {
-            System.out.println("This ID number is not available!");
-            return;
         }
-        System.out.println("You edited the programmer with success!");
-
     }
 
     // Function to add a new Programmer to list of programmers (list1)
-    public void addProgrammer(ArrayList<ActiveProgrammers> list1) throws ParseException {
-        int number = list1.size() + 1;
+    public void addProgrammer(ArrayList<ActiveProgrammers> list1) {
+        ActiveProgrammers p;
+        int i = list1.size();
+        p = list1.get(i-1);
+        int number = p.getId()+1;
         System.out.println("Please insert the first name");
         String firstName = Main.scanner.next();
         System.out.println("Now, please insert the last name");
         String lastName = Main.scanner.next();
-        System.out.println("Insert the start date of work");
-        String start = Main.scanner.next();
-        Date date = dateFormat.parse(start);
+        System.out.println("The start date will be initialized once the programmer is inserted in a new project");
+        String start = "0000-00-00";
+        LocalDate date = LocalDate.parse(start);
         System.out.println("Insert the salary per hour");
-        int salary = scanner.nextInt();
+        double salary = scanner.nextDouble();
         this.active = false;
         ActiveProgrammers member = new ActiveProgrammers(number, firstName, lastName, date, salary, this.active);
         list1.add(member);
+    }
+
+    public void deleteProgrammer(ArrayList<ActiveProgrammers> list1) {
+        System.out.println("Warning: you can only remove programmers which are not inserted in a project");
+        int n = 0;
+        for(ActiveProgrammers programmer: list1) {
+            if(!programmer.getActive()) {
+                n++;
+                System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryDay() + "€ per day.");
+            }
+        }
+        if(n == 0) {
+            System.out.println("All the programmers are inserted in projects, you cannot delete anyone!");
+            return;
+        } else {
+            System.out.println("From the list above, select the ID of the programmer you want to delete");
+            int choice = scanner.nextInt();
+            for(ActiveProgrammers programmers: list1) {
+                if(programmers.getId() == choice) {
+                    list1.remove(programmers);
+                    System.out.println("Programmer " + programmers.getFirstName() + " " + programmers.getLastName() + " deleted!");
+                    break;
+                } else {
+                    System.out.println("The ID is not valid!");
+                    break;
+                }
+            }
+        }
     }
 }

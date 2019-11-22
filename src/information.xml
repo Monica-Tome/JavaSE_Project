@@ -4,7 +4,7 @@
         <id>1</id>
         <firstName>Sara</firstName>
         <lastName>Silva</lastName>
-        <startDate>12-10-2019</startDate>
+        <startDate>2019-10-12</startDate>
         <salaryDay>12</salaryDay>
         <active>true</active>
     </programmer>
@@ -12,7 +12,7 @@
         <id>2</id>
         <firstName>Daniel</firstName>
         <lastName>Oz</lastName>
-        <startDate>12-10-2019</startDate>
+        <startDate>2019-10-12</startDate>
         <salaryDay>12</salaryDay>
         <active>true</active>
     </programmer>
@@ -20,7 +20,7 @@
         <id>3</id>
         <firstName>Afonso</firstName>
         <lastName>Pereira</lastName>
-        <startDate>12-11-2019</startDate>
+        <startDate>2019-11-12</startDate>
         <salaryDay>15</salaryDay>
         <active>true</active>
     </programmer>
@@ -28,7 +28,7 @@
         <id>4</id>
         <firstName>Luís</firstName>
         <lastName>Damásio</lastName>
-        <startDate>12-11-2019</startDate>
+        <startDate>2019-11-12</startDate>
         <salaryDay>20</salaryDay>
         <active>true</active>
     </programmer>
@@ -36,14 +36,22 @@
         <id>5</id>
         <firstName>Francisco</firstName>
         <lastName>Pires</lastName>
-        <startDate>1-11-2019</startDate>
+        <startDate>2019-11-01</startDate>
+        <salaryDay>20</salaryDay>
+        <active>false</active>
+    </programmer>
+    <programmer>
+        <id>6</id>
+        <firstName>Pedro</firstName>
+        <lastName>Sousa</lastName>
+        <startDate>2019-11-01</startDate>
         <salaryDay>20</salaryDay>
         <active>false</active>
     </programmer>
     <project>
         <id>1</id>
-        <startDate>12-10-2019</startDate>
-        <endDate>30-11-2019</endDate>
+        <startDate>2019-10-12</startDate>
+        <endDate>2019-11-30</endDate>
         <memberId>1</memberId>
         <activity>Front-end</activity>
         <memberId>2</memberId>
@@ -51,8 +59,8 @@
     </project>
     <project>
         <id>2</id>
-        <startDate>12-11-2019</startDate>
-        <endDate>30-11-2019</endDate>
+        <startDate>2019-11-12</startDate>
+        <endDate>2019-11-30</endDate>
         <memberId>3</memberId>
         <activity>Design</activity>
         <memberId>4</memberId>

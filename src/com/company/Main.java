@@ -1,5 +1,7 @@
 package com.company;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.text.ParseException;
@@ -10,11 +12,11 @@ public class Main {
     public static void main(String[] args) throws ParseException {
         //Initialize ArrayLists and read xml file before enter the menu
         ArrayList<ActiveProgrammers> list1 = new ArrayList<>();
-        ArrayList<NewProject> list2 = new ArrayList<>();
+        ArrayList<ProjectTeam> list2 = new ArrayList<>();
         ReadFile member = new ReadFile();
         member.readFile(list1, list2);
         ActiveProgrammers programmers = new ActiveProgrammers();
-        NewProject project = new NewProject();
+        ProjectTeam project = new ProjectTeam();
         Main menu = new Main();
 
         //Creates a menu to choose options
@@ -27,7 +29,7 @@ public class Main {
             choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
-                // To see the report
+                // To update the system and see the report of the company
                 case 1:
                     project.printReport(list1, list2);
                     System.out.println("");
@@ -36,7 +38,7 @@ public class Main {
                     choice = scanner.nextInt();
                     scanner.nextLine();
                     break;
-                // To edit programmers' data
+                // To edit programmer's salary per day
                 case 2:
                     System.out.println("These are the programmers in the company:");
                     System.out.println("-----------------------------------------");
@@ -47,47 +49,33 @@ public class Main {
                     programmers.editProgrammer(list1);
                     break;
 
-                // To edit projects' data
-                case 3:
-                    System.out.println("These are the projects in the company:");
-                    System.out.println("-----------------------------------------");
-                    // Prints the list of projects and the programmers included in each project
-                    project.printProject(list1, list2);
-                    System.out.println("\t *Enter the ID of the project you want to edit: ");
-                    // Functions to edit projects' fields
-//                    project.editProject(list1, list2);
-                    System.out.println("\t Enter a number to return to main menu: ");
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
-                    break;
-
                 // To insert a new programmer in xml file
-                case 4:
+                case 3:
                     programmers.addProgrammer(list1);
                     break;
 
                 // To insert a new project in xml file
-                case 5:
-                    System.out.println("Still updating5");
-                    break;
-
-                // To update the system
-                case 6:
-                    System.out.println("Still updating6");
+                case 4:
+                    project.addProject(list1, list2);
                     break;
 
                 // To delete a programmer from xml file
-                case 7:
-                    System.out.println("Still updating7");
+                case 5:
+                    programmers.deleteProgrammer(list1);
                     break;
 
                 // To delete a project from xml file
-                case 8:
+                case 6:
+                    System.out.println("Still updating7");
+                    break;
+
+                // To save alterations made
+                case 7:
                     System.out.println("Still updating8");
                     break;
 
                 // To exit
-                case 9:
+                case 8:
                     quit = true;
                     break;
             }
@@ -96,33 +84,15 @@ public class Main {
 
     // Main menu options
     public void menu() {
-        System.out.println("\t 1 - To see the report of programmers and projects");
-        System.out.println("\t 2 - To edit programmers");
-        System.out.println("\t 3 - To edit projects");
-        System.out.println("\t 4 - To insert new programmer");
-        System.out.println("\t 5 - To insert new project");
-        System.out.println("\t 6 - To update the system");
-        System.out.println("\t 7 - To delete a programmer");
-        System.out.println("\t 8 - To delete a project");
-        System.out.println("\t 9 - To exit");
+        System.out.println("\t 1 - To update the system and see the report of the company");
+        System.out.println("\t 2 - To edit programmer's salary per day");
+        System.out.println("\t 3 - To insert new programmer");
+        System.out.println("\t 4 - To insert new project");
+        System.out.println("\t 5 - To delete a programmer");
+        System.out.println("\t 6 - To delete a project");
+        System.out.println("\t 7 - To save changes in XML file");
+        System.out.println("\t 8 - To exit");
         System.out.println("Enter your choice: ");
     }
 
-    // Menu to choose the programmer' field to edit
-    public void submenuEditProgrammer() {
-        System.out.println("\t *Enter the choice number to edit: ");
-        System.out.println("\t 1 - First name");
-        System.out.println("\t 2 - Last name");
-        System.out.println("\t 3 - Start date of work ");
-        System.out.println("\t 4 - Salary per day ");
-    }
-
-    // Menu to choose the project' field to edit
-    public void submenuEditProject() {
-        System.out.println("\t *Enter the choice number to edit: ");
-        System.out.println("\t 1 - Start date");
-        System.out.println("\t 2 - End date");
-        System.out.println("\t 3 - Insert new programmer");
-        System.out.println("\t 4 - Delete a programmer");
-    }
 }

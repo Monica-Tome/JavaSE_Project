@@ -1,10 +1,8 @@
 package com.company;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 
@@ -95,6 +93,7 @@ public class ActiveProgrammers implements Programmers {
     public void editProgrammer(ArrayList<ActiveProgrammers> list1) {
         // variable to choose the ID of the programmer to be edited
         int choice = scanner.nextInt();
+        boolean verify = false;
         for(ActiveProgrammers programmer: list1) {
             if(programmer.getId() == choice) {
                 System.out.println("Please insert the new salary by each day");
@@ -102,11 +101,12 @@ public class ActiveProgrammers implements Programmers {
                 programmer.setSalaryDay(salary);
                 System.out.println("You edited the salary with success!");
                 System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryDay() + "€ per day.");
+                verify = true;
                 return;
-            } else {
-                System.out.println("This ID number is not available!");
-                break;
             }
+        }
+        if(!verify) {
+            System.out.println("ID is not valid!");
         }
     }
 
@@ -121,7 +121,7 @@ public class ActiveProgrammers implements Programmers {
         System.out.println("Now, please insert the last name");
         String lastName = Main.scanner.next();
         System.out.println("The start date will be initialized once the programmer is inserted in a new project");
-        String start = "0000-00-00";
+        String start = "0000-01-01";
         LocalDate date = LocalDate.parse(start);
         System.out.println("Insert the salary per hour");
         double salary = scanner.nextDouble();
@@ -133,6 +133,7 @@ public class ActiveProgrammers implements Programmers {
     public void deleteProgrammer(ArrayList<ActiveProgrammers> list1) {
         System.out.println("Warning: you can only remove programmers which are not inserted in a project");
         int n = 0;
+        boolean verify = false;
         for(ActiveProgrammers programmer: list1) {
             if(!programmer.getActive()) {
                 n++;
@@ -149,11 +150,12 @@ public class ActiveProgrammers implements Programmers {
                 if(programmers.getId() == choice) {
                     list1.remove(programmers);
                     System.out.println("Programmer " + programmers.getFirstName() + " " + programmers.getLastName() + " deleted!");
-                    break;
-                } else {
-                    System.out.println("The ID is not valid!");
-                    break;
+                    verify = true;
+                    return;
                 }
+            }
+            if (!verify) {
+                System.out.println("ID is not valid!");
             }
         }
     }

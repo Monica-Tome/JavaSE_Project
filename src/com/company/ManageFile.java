@@ -149,7 +149,7 @@ public class ManageFile {
 
             // Creates the date element
             Element date = doc.createElement("date");
-            date.appendChild(doc.createTextNode(report.date.toString()));
+            date.appendChild(doc.createTextNode(report.dateToday.toString()));
             rootElement.appendChild(date);
 
             // Delete the programmers from xml file

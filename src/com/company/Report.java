@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.xml.transform.TransformerException;
 import java.io.Console;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -11,11 +12,11 @@ public class Report {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     int k;
     CharSequence text;
-    LocalDate date = LocalDate.parse("2019-11-27");
+    LocalDate dateToday = LocalDate.parse("2019-11-27");
 
     // Function that prints the report about the IT company
     public void printReport(ArrayList<ActiveProgrammers> list1, ArrayList<ProjectTeam> list2) {
-        System.out.println("Report date: " + formatter.format(date));
+        System.out.println("Report date: " + formatter.format(dateToday));
         System.out.println("");
 
         // Calculate the number of programmers and projects in the IT Company
@@ -82,12 +83,12 @@ public class Report {
                 for (ActiveProgrammers programmers: list1) {
                         if(id == programmers.getId()) {
                             // Verifies if the local date' month is the same of programmer' start date of work
-                            if(LocalDate.now().getMonth() == programmers.getStartDate().getMonth()) {
-                                long diff = Math.abs(ChronoUnit.DAYS.between(LocalDate.now(), (programmers.getStartDate())));
+                            if(dateToday.getMonth() == programmers.getStartDate().getMonth()) {
+                                long diff = Math.abs(ChronoUnit.DAYS.between(dateToday, (programmers.getStartDate())));
                                 daysWorked += diff;
                             // Verifies if the local date' month is bigger than the programmer' month of start date of work
-                            } else if(LocalDate.now().getMonth().getValue()>programmers.getStartDate().getMonth().getValue()){
-                                long diff = Math.abs(LocalDate.now().getDayOfMonth()-1);
+                            } else if(dateToday.getMonth().getValue()>programmers.getStartDate().getMonth().getValue()){
+                                long diff = Math.abs(dateToday.getDayOfMonth()-1);
                                 daysWorked += diff;
                             }
                         }
@@ -126,31 +127,31 @@ public class Report {
                 for (ActiveProgrammers programmers: list1) {
                     if(id == programmers.getId()) {
                         // Verifies if the local date' month is the same of project' end date
-                        if(LocalDate.now().getMonth() == list2.get(i).getEndDate().getMonth()) {
-                                long diff = Math.abs(ChronoUnit.DAYS.between(LocalDate.now(), (list2.get(i).getEndDate())));
+                        if(dateToday.getMonth() == list2.get(i).getEndDate().getMonth()) {
+                                long diff = Math.abs(ChronoUnit.DAYS.between(dateToday, (list2.get(i).getEndDate())));
                             daysLeftWork += diff;
                         // Verifies if the local date' month is smaller than the project' end date
-                        } else if(LocalDate.now().getMonth().getValue()<list2.get(i).getEndDate().getMonth().getValue()){
+                        } else if(dateToday.getMonth().getValue()<list2.get(i).getEndDate().getMonth().getValue()){
                             // Verifies which month is
-                            if (LocalDate.now().getMonth().getValue() == 1
-                                    || LocalDate.now().getMonth().getValue() == 3
-                                    || LocalDate.now().getMonth().getValue() == 5
-                                    || LocalDate.now().getMonth().getValue() == 7
-                                    || LocalDate.now().getMonth().getValue() == 8
-                                    || LocalDate.now().getMonth().getValue() == 10
-                                    || LocalDate.now().getMonth().getValue() == 12) {
-                                long diff = Math.abs(LocalDate.now().getDayOfMonth()-31);
+                            if (dateToday.getMonth().getValue() == 1
+                                    || dateToday.getMonth().getValue() == 3
+                                    || dateToday.getMonth().getValue() == 5
+                                    || dateToday.getMonth().getValue() == 7
+                                    || dateToday.getMonth().getValue() == 8
+                                    || dateToday.getMonth().getValue() == 10
+                                    || dateToday.getMonth().getValue() == 12) {
+                                long diff = Math.abs(dateToday.getDayOfMonth()-31);
                                 daysLeftWork += diff;
-                            } else if(LocalDate.now().getMonth().getValue() == 2) {
-                                if(isLeapYear(LocalDate.now().getYear())) {
-                                    long diff = Math.abs(LocalDate.now().getDayOfMonth()-29);
+                            } else if(dateToday.getMonth().getValue() == 2) {
+                                if(isLeapYear(dateToday.getYear())) {
+                                    long diff = Math.abs(dateToday.getDayOfMonth()-29);
                                     daysLeftWork += diff;
                                 } else {
-                                    long diff = Math.abs(LocalDate.now().getDayOfMonth()-28);
+                                    long diff = Math.abs(dateToday.getDayOfMonth()-28);
                                     daysLeftWork += diff;
                                 }
                             } else {
-                                long diff = Math.abs(LocalDate.now().getDayOfMonth()-30);
+                                long diff = Math.abs(dateToday.getDayOfMonth()-30);
                                 daysLeftWork += diff;
                             }
                         }
@@ -188,13 +189,13 @@ public class Report {
                         this.k = (int)diff;
                         return k;
                     } else if((list2.get(i).getStartDate().getMonth().getValue() < list2.get(i).getEndDate().getMonth().getValue())
-                            && list2.get(i).getStartDate().getMonth().getValue() == LocalDate.now().getMonth().getValue()){
-                        long diff = Math.abs(ChronoUnit.DAYS.between(list2.get(i).getStartDate(), LocalDate.now()));
+                            && list2.get(i).getStartDate().getMonth().getValue() == dateToday.getMonth().getValue()){
+                        long diff = Math.abs(ChronoUnit.DAYS.between(list2.get(i).getStartDate(), dateToday));
                         this.k = (int)diff;
                         return k;
                     } else if ((list2.get(i).getStartDate().getMonth().getValue() < list2.get(i).getEndDate().getMonth().getValue())
-                            && list2.get(i).getStartDate().getMonth().getValue() < LocalDate.now().getMonth().getValue()){
-                        long diff = Math.abs(LocalDate.now().getDayOfMonth()-1);
+                            && list2.get(i).getStartDate().getMonth().getValue() < dateToday.getMonth().getValue()){
+                        long diff = Math.abs(dateToday.getDayOfMonth()-1);
                         this.k = (int)diff;
                     }
                 }
@@ -214,7 +215,30 @@ public class Report {
         return salary;
     }
 
-    public void update() {
-        this.date.plusDays(1);
+    public void update() throws TransformerException {
+        ManageFile manage = new ManageFile();
+        ArrayList<ActiveProgrammers> list1 = new ArrayList<>();
+        ArrayList<ProjectTeam> list2 = new ArrayList<>();
+        this.dateToday.plusDays(1);
+        manage.save(list1, list2);
+    }
+
+    public void checkProjectDate(ArrayList<ActiveProgrammers> list1, ArrayList<ProjectTeam> list2) {
+        for (int i = 0; i < list2.size(); i++) {
+            for (ProjectTeam project : list2) {
+                if(list2.get(i).getEndDate().isBefore(dateToday)) {
+                    int size = list2.get(i).getMemberID().size();
+                    for (int j = 0; j < size; j++) {
+                            int id = list2.get(i).getMemberID().get(j);
+                        for(ActiveProgrammers programmers: list1) {
+                            if(programmers.getId()==id) {
+                                programmers.setActive(false);
+                            }
+                        }
+                    }
+                    list2.remove(i);
+                }
+            }
+        }
     }
 }

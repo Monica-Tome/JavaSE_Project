@@ -35,6 +35,8 @@ public class Main {
             switch (choice) {
                 // To initialize the report of the company and update the system (date, active projects, active programmers and salaries)
                 case 0:
+                    report.update();
+                    report.checkProjectDate(list1, list2);
                 case 1:
                     System.out.println("");
                     report.printReport(list1, list2);
@@ -84,13 +86,13 @@ public class Main {
 
     // Main menu options
     public void menu() {
-        System.out.println("\t 0 - To update the system");
+        System.out.println("\t 0 - To update and save the system");
         System.out.println("\t 1 - To see the report of the company");
         System.out.println("\t 2 - To edit programmer's salary per day");
         System.out.println("\t 3 - To insert new programmer");
         System.out.println("\t 4 - To create new project");
         System.out.println("\t 5 - To delete a programmer");
-        System.out.println("\t 6 - To save changes in XML file");
+        System.out.println("\t 6 - To save changes");
         System.out.println("\t 7 - To exit");
         System.out.println("Enter your choice: ");
     }

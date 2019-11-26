@@ -14,16 +14,15 @@ public class Main {
         ArrayList<ProjectTeam> list2 = new ArrayList<>();
         ManageFile member = new ManageFile();
         try{
-            member.createFile(list1, list2);
+            member.readFile(list1, list2);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        member.readFile(list1, list2);
         ActiveProgrammers programmers = new ActiveProgrammers();
         ProjectTeam project = new ProjectTeam();
+        Report report = new Report();
         Main menu = new Main();
-
         //Creates a menu to choose options
         boolean quit = false;
         int choice = 0;
@@ -35,9 +34,10 @@ public class Main {
             scanner.nextLine();
             switch (choice) {
                 // To initialize the report of the company and update the system (date, active projects, active programmers and salaries)
+                case 0:
                 case 1:
                     System.out.println("");
-                    project.printReport(list1, list2);
+                    report.printReport(list1, list2);
                     System.out.println("Menu");
                     System.out.println("\t Enter a number to return to main menu: ");
                     choice = scanner.nextInt();
@@ -84,7 +84,8 @@ public class Main {
 
     // Main menu options
     public void menu() {
-        System.out.println("\t 1 - To update the system and see the report of the company");
+        System.out.println("\t 0 - To update the system");
+        System.out.println("\t 1 - To see the report of the company");
         System.out.println("\t 2 - To edit programmer's salary per day");
         System.out.println("\t 3 - To insert new programmer");
         System.out.println("\t 4 - To create new project");

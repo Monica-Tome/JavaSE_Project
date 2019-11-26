@@ -13,6 +13,8 @@ public class ActiveProgrammers implements Programmers {
     private LocalDate startDate;
     private double salaryDay;
     boolean active;
+    private int payment;
+    private int daysWorked;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     Scanner scanner = new Scanner(System.in);
     Main menu = new Main();
@@ -20,13 +22,15 @@ public class ActiveProgrammers implements Programmers {
     public ActiveProgrammers() {
     }
 
-    public ActiveProgrammers(int id, String firstName, String lastName, LocalDate startDate, double salaryDay, boolean active) {
+    public ActiveProgrammers(int id, String firstName, String lastName, LocalDate startDate, int daysWorked, double salaryDay, boolean active, int payment) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.startDate = startDate;
+        this.daysWorked = daysWorked;
         this.salaryDay = salaryDay;
         this.active = active;
+        this.payment = payment;
     }
 
     // Id only has the function to get its value due to not be allowed to be edited
@@ -39,19 +43,9 @@ public class ActiveProgrammers implements Programmers {
         return firstName;
     }
 
-    // Change the firstName value
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     // Returns the lastName value
     public String getLastName() {
         return lastName;
-    }
-
-    // Change the lastName value
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     // Returns the startDate value
@@ -62,6 +56,11 @@ public class ActiveProgrammers implements Programmers {
     // Change the startDate value
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
+    }
+
+    // Returns the value of days worked by the programmer
+    public int getDaysWorked() {
+        return daysWorked;
     }
 
     // Returns the salaryHour value
@@ -80,16 +79,33 @@ public class ActiveProgrammers implements Programmers {
     // Change the boolean value of active
     public void setActive(boolean active) { this.active = active; }
 
-    // Function that prints the list of programmers (list1)
-    public ArrayList printProgrammers(ArrayList<ActiveProgrammers> list1) {
-
-        for (ActiveProgrammers programmer: list1) {
-            System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryDay() + "€ per day.");
-        }
-        return list1;
+    // Returns the payment regimen
+    public int getPayment() {
+        return payment;
     }
 
-    // Function that allows the user to edit each programmer in the list of programmers (list1)
+    // Change the payment regimen to 50% or 100%
+    public void setPayment(int payment) {
+        if(payment == 100) {
+            this.payment = 100;
+        } else if(payment == 50) {
+            this.payment = 50;
+        } else {
+            System.out.println("The payment regimen can only be 50% or 100%");
+            return;
+        }
+    }
+
+
+    // Function that prints the list of programmers (list1)
+    public void printProgrammers(ArrayList<ActiveProgrammers> list1) {
+
+        for (ActiveProgrammers programmer : list1) {
+            System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryDay() + "€ per day.");
+        }
+    }
+
+    // Function that allows the user to edit each programmer' salaryDay and payment regimen in the list of programmers (list1)
     public void editProgrammer(ArrayList<ActiveProgrammers> list1) {
         // variable to choose the ID of the programmer to be edited
         int choice = scanner.nextInt();
@@ -98,9 +114,12 @@ public class ActiveProgrammers implements Programmers {
             if(programmer.getId() == choice) {
                 System.out.println("Please insert the new salary by each day");
                 double salary = Main.scanner.nextDouble();
+                System.out.println("Now, define the payment regimen to 50% or 100%. Insert only the number without the %.");
+                int payment = Main.scanner.nextInt();
+                programmer.setPayment(payment);
                 programmer.setSalaryDay(salary);
-                System.out.println("You edited the salary with success!");
-                System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryDay() + "€ per day.");
+                System.out.println("The programmer was edited with success!");
+                System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " , receives " + programmer.getSalaryDay() + "€ per day and the payment regimen is " + programmer.getPayment() + "%.");
                 verify = true;
                 return;
             }
@@ -126,7 +145,9 @@ public class ActiveProgrammers implements Programmers {
         System.out.println("Insert the salary per hour");
         double salary = scanner.nextDouble();
         this.active = false;
-        ActiveProgrammers member = new ActiveProgrammers(number, firstName, lastName, date, salary, this.active);
+        this.daysWorked = 0;
+
+        ActiveProgrammers member = new ActiveProgrammers(number, firstName, lastName, date, daysWorked, salary, this.active, payment);
         list1.add(member);
     }
 

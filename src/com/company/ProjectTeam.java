@@ -69,42 +69,6 @@ public class ProjectTeam {
         this.memberActivity = memberActivity;
     }
 
-    // Function that prints the report about the IT company
-    public void printReport(ArrayList<ActiveProgrammers> list1, ArrayList<ProjectTeam> list2) {
-        System.out.println("Report");
-        System.out.println("");
-        System.out.println("IT Company is actually composed of " + list2.size() + " project teams, and " + list1.size() + " programmers.");
-        System.out.println("This month, n3 programmers have been worked n4 days, and n5 days left worked.");
-        System.out.println("====================================================================================");
-        System.out.println("");
-        System.out.println("Project teams details:");
-        System.out.println("----------------------------------");
-
-            for (int i = 0; i < list2.size(); i++) {
-
-                int size = list2.get(i).getMemberID().size();
-                System.out.println("");
-                System.out.println("Project team: " + list2.get(i).getId());
-                System.out.println("*************************************");
-                for (int j = 0; j < size; j++) {
-                    int search = list2.get(i).getMemberID().get(j);
-                    ActiveProgrammers p = new ActiveProgrammers();
-                    for (ActiveProgrammers person : list1) {
-                        if (person.getId() == search) {
-                            p = person;
-                        }
-                    }
-                    System.out.println((j + 1) + ") Member: " +
-                            p.getLastName() +
-                            ", " + p.getFirstName() +
-                            ", in charge of " + list2.get(i).getMemberActivity().get(j) +
-                            " from " + formatter.format(p.getStartDate()) + " to " +
-                            formatter.format(list2.get(i).getEndDate()));
-                    // Still needs n3, n4, n5, n10, n11 and n12
-                }
-            }
-        }
-
     // Function that prints the list of projects (list2)
     public ArrayList printProject(ArrayList<ActiveProgrammers> list1, ArrayList<ProjectTeam> list2) {
 

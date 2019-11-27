@@ -131,7 +131,7 @@ public class ActiveProgrammers implements Programmers {
                         System.out.println("Now, define the payment regimen to 50% or 100%. Insert only the number without the %.");
                         String string2 = Main.scanner.next();
                         try {
-                            int payment = Integer.parseInt(string2);
+                            int payment = Math.abs(Integer.parseInt(string2));
                             if(payment == 50 || payment == 100) {
                                 programmer.setPayment(payment);
                                 programmer.setSalaryDay(salary);
@@ -175,7 +175,7 @@ public class ActiveProgrammers implements Programmers {
         System.out.println("Insert the salary per day");
         String input = scanner.next();
         try {
-            double salary = Double.parseDouble(input);
+            double salary = Math.abs(Double.parseDouble(input));
             this.active = false;
             this.daysWorked = 0;
 

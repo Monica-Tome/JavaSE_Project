@@ -19,9 +19,11 @@ public class ActiveProgrammers implements Programmers {
     Scanner scanner = new Scanner(System.in);
     Main menu = new Main();
 
+    // Empty constructor so it can be initialized without arguments
     public ActiveProgrammers() {
     }
 
+    // Constructor to create a new programmer with ActiveProgrammers' class
     public ActiveProgrammers(int id, String firstName, String lastName, LocalDate startDate, int daysWorked, double salaryDay, boolean active, int payment) {
         this.id = id;
         this.firstName = firstName;
@@ -63,6 +65,11 @@ public class ActiveProgrammers implements Programmers {
         return daysWorked;
     }
 
+    // Change the days worked by the programmer
+    public void setDaysWorked(int daysWorked) {
+        this.daysWorked = daysWorked;
+    }
+
     // Returns the salaryHour value
     public double getSalaryDay() {
         return salaryDay;
@@ -74,10 +81,14 @@ public class ActiveProgrammers implements Programmers {
     }
 
     // Returns the boolean value of active
-    public boolean getActive() { return active; }
+    public boolean getActive() {
+        return active;
+    }
 
     // Change the boolean value of active
-    public void setActive(boolean active) { this.active = active; }
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     // Returns the payment regimen
     public int getPayment() {
@@ -86,16 +97,15 @@ public class ActiveProgrammers implements Programmers {
 
     // Change the payment regimen to 50% or 100%
     public void setPayment(int payment) {
-        if(payment == 100) {
+        if (payment == 100) {
             this.payment = 100;
-        } else if(payment == 50) {
+        } else if (payment == 50) {
             this.payment = 50;
         } else {
             System.out.println("The payment regimen can only be 50% or 100%");
             return;
         }
     }
-
 
     // Function that prints the list of programmers (list1)
     public void printProgrammers(ArrayList<ActiveProgrammers> list1) {
@@ -108,75 +118,116 @@ public class ActiveProgrammers implements Programmers {
     // Function that allows the user to edit each programmer' salaryDay and payment regimen in the list of programmers (list1)
     public void editProgrammer(ArrayList<ActiveProgrammers> list1) {
         // variable to choose the ID of the programmer to be edited
-        int choice = scanner.nextInt();
-        boolean verify = false;
-        for(ActiveProgrammers programmer: list1) {
-            if(programmer.getId() == choice) {
-                System.out.println("Please insert the new salary by each day");
-                double salary = Main.scanner.nextDouble();
-                System.out.println("Now, define the payment regimen to 50% or 100%. Insert only the number without the %.");
-                int payment = Main.scanner.nextInt();
-                programmer.setPayment(payment);
-                programmer.setSalaryDay(salary);
-                System.out.println("The programmer was edited with success!");
-                System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " , receives " + programmer.getSalaryDay() + "€ per day and the payment regimen is " + programmer.getPayment() + "%.");
-                verify = true;
-                return;
+        String input = scanner.next();
+        try {
+            int choice = Integer.parseInt(input);
+            boolean verify = false;
+            for (ActiveProgrammers programmer : list1) {
+                if (programmer.getId() == choice) {
+                    System.out.println("Please insert the new salary by each day");
+                    String string = Main.scanner.next();
+                    try {
+                        double salary = Double.parseDouble(string);
+                        System.out.println("Now, define the payment regimen to 50% or 100%. Insert only the number without the %.");
+                        String string2 = Main.scanner.next();
+                        try {
+                            int payment = Integer.parseInt(string2);
+                            if(payment == 50 || payment == 100) {
+                                programmer.setPayment(payment);
+                                programmer.setSalaryDay(salary);
+                                System.out.println("The programmer was edited with success!");
+                                System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " , receives " + programmer.getSalaryDay() + "€ per day and the payment regimen is " + programmer.getPayment() + "%.");
+                                verify = true;
+                                return;
+                            } else {
+                                System.out.println("The payment can only be defined in 50 or 100%");
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Please insert a valid number");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Please insert a valid number");
+                        break;
+                    }
+                }
             }
-        }
-        if(!verify) {
-            System.out.println("ID is not valid!");
+            // Validates the ID inserted with the ID of the correspondent programmer
+            if (!verify) {
+                System.out.println("ID is not valid!");
+            }
+        } catch (Exception e) {
+            System.out.println("Please insert a valid number");
         }
     }
 
     // Function to add a new Programmer to list of programmers (list1)
-    public void addProgrammer(ArrayList<ActiveProgrammers> list1) {
+    public void addProgrammer(ArrayList<ActiveProgrammers> list1, ArrayList<LocalDate> dateToday) {
         ActiveProgrammers p;
         int i = list1.size();
-        p = list1.get(i-1);
-        int number = p.getId()+1;
+        p = list1.get(i - 1);
+        int number = p.getId() + 1;
         System.out.println("Please insert the first name");
         String firstName = Main.scanner.next();
         System.out.println("Now, please insert the last name");
         String lastName = Main.scanner.next();
-        System.out.println("The start date will be initialized once the programmer is inserted in a new project");
-        String start = "0000-01-01";
-        LocalDate date = LocalDate.parse(start);
-        System.out.println("Insert the salary per hour");
-        double salary = scanner.nextDouble();
-        this.active = false;
-        this.daysWorked = 0;
+        System.out.println("The start date will be settled to the system date.");
+        LocalDate date = dateToday.get(0);
+        System.out.println("Insert the salary per day");
+        String input = scanner.next();
+        try {
+            double salary = Double.parseDouble(input);
+            this.active = false;
+            this.daysWorked = 0;
 
-        ActiveProgrammers member = new ActiveProgrammers(number, firstName, lastName, date, daysWorked, salary, this.active, payment);
-        list1.add(member);
+            // Inserts the new programmer in the list1, without saving in the xml file. If the user wants to save, it has to be saved by calling the save function
+            ActiveProgrammers member = new ActiveProgrammers(number, firstName, lastName, date, daysWorked, salary, this.active, payment);
+            list1.add(member);
+            System.out.println("The payment regimen for an inactive programmer is 50%.");
+            System.out.println("New programmer added!");
+        } catch (Exception e) {
+            System.out.println("Please insert a valid number");
+        }
     }
 
+    // Function to delete a programmer that is not active
     public void deleteProgrammer(ArrayList<ActiveProgrammers> list1) {
         System.out.println("Warning: you can only remove programmers which are not inserted in a project");
         int n = 0;
         boolean verify = false;
-        for(ActiveProgrammers programmer: list1) {
-            if(!programmer.getActive()) {
+        for (ActiveProgrammers programmer : list1) {
+            if (!programmer.getActive()) {
                 n++;
                 System.out.println("ID: " + programmer.getId() + " - " + programmer.getFirstName() + " " + programmer.getLastName() + ", started working in " + formatter.format(programmer.getStartDate()) + " and receives " + programmer.getSalaryDay() + "€ per day.");
             }
         }
-        if(n == 0) {
+
+        // If there are no programmers inactive, then the user cannot delete anyone
+        if (n == 0) {
             System.out.println("All the programmers are inserted in projects, you cannot delete anyone!");
             return;
+
+            // If there are programmers active, the user can choose which one he wants to delete
         } else {
             System.out.println("From the list above, select the ID of the programmer you want to delete");
-            int choice = scanner.nextInt();
-            for(ActiveProgrammers programmers: list1) {
-                if(programmers.getId() == choice) {
-                    list1.remove(programmers);
-                    System.out.println("Programmer " + programmers.getFirstName() + " " + programmers.getLastName() + " deleted!");
-                    verify = true;
-                    return;
+            String input = scanner.next();
+            try {
+                int choice = Integer.parseInt(input);
+                for (ActiveProgrammers programmers : list1) {
+                    if (programmers.getId() == choice) {
+                        // The remove function removes the entire object (programmer)
+                        list1.remove(programmers);
+                        // Prints the list with the programmers last after removing the other one
+                        System.out.println("Programmer " + programmers.getFirstName() + " " + programmers.getLastName() + " deleted!");
+                        verify = true;
+                        return;
+                    }
                 }
-            }
-            if (!verify) {
-                System.out.println("ID is not valid!");
+                // Validates the ID inserted with the ID of the correspondent programmer
+                if (!verify) {
+                    System.out.println("ID is not valid!");
+                }
+            } catch (Exception e) {
+                System.out.println("Please insert a valid number");
             }
         }
     }
